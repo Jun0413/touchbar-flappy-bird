@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B0AF6CC21F3C73800D24159 /* bestscore.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8B0AF6CB21F3C73800D24159 /* bestscore.mp3 */; };
 		8BBD13C021F203E200461F0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13BF21F203E200461F0B /* AppDelegate.swift */; };
 		8BBD13C221F203E200461F0B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13C121F203E200461F0B /* ViewController.swift */; };
 		8BBD13C421F203E300461F0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD13C321F203E300461F0B /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B0AF6CB21F3C73800D24159 /* bestscore.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bestscore.mp3; sourceTree = "<group>"; };
 		8BBD13BC21F203E200461F0B /* project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBD13BF21F203E200461F0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BBD13C121F203E200461F0B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		8BBD144821F3736D00461F0B /* SoundTrack */ = {
 			isa = PBXGroup;
 			children = (
+				8B0AF6CB21F3C73800D24159 /* bestscore.mp3 */,
 				8BBD144921F3736D00461F0B /* flappy_bgm.mp3 */,
 				8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */,
 				8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */,
@@ -286,6 +289,7 @@
 				8BBD144F21F3736D00461F0B /* flappy_hit.mp3 in Resources */,
 				8BBD145321F3A3DE00461F0B /* FlappyBirdy.ttf in Resources */,
 				8BBD13C721F203E300461F0B /* Main.storyboard in Resources */,
+				8B0AF6CC21F3C73800D24159 /* bestscore.mp3 in Resources */,
 				8BBD144E21F3736D00461F0B /* flappy_failed.mp3 in Resources */,
 				8BBD145021F3736D00461F0B /* flappy_wing.mp3 in Resources */,
 			);

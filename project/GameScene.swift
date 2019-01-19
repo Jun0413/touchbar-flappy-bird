@@ -2,8 +2,8 @@
 //  GameScene.swift
 //  project
 //
-//  Created by Junhao Zeng on 2019/1/19.
-//  Copyright © 2019 Junhao Zeng. All rights reserved.
+//  Created by Junhao Zeng, Zhenyuan Lu on 2019/1/19.
+//  Copyright © 2019 Junhao Zeng, Zhenyuan Lu. All rights reserved.
 //
 
 import Cocoa
@@ -171,11 +171,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func endGame() {
         
+        var filename:String = "flappy_failed.mp3"
+        var filelength:Double = 3.5
+        
         if updateBestScore(score: currentScore) {
             // update windows UI
             // first score not shown up
             print("##### Best score ##### \(currentScore)")
             bestscoreCallback!(false)
+            filename = "bestscore.mp3"
+            filelength = 2.0
         }
         
         self.gameNo += 1
@@ -195,9 +200,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            self.backgroundSound = SKAudioNode(fileNamed: "flappy_failed.mp3")
+            self.backgroundSound = SKAudioNode(fileNamed: filename)
             self.addChild(self.backgroundSound)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + filelength, execute: {
                 self.removeChildren(in: [self.backgroundSound])
                 self.canStart = true
             })
@@ -360,6 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             userDefaults.set(score, forKey: "bestscore")
             userDefaults.synchronize()
             print("initialize")
+            return true
         }
         if shouldUpdate {
             userDefaults.set(score, forKey: "bestscore")

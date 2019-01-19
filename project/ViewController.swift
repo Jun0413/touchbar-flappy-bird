@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  project
 //
-//  Created by Junhao Zeng on 2019/1/18.
-//  Copyright © 2019 Junhao Zeng. All rights reserved.
+//  Created by Junhao Zeng, Zhenyuan Lu on 2019/1/18.
+//  Copyright © 2019 Junhao Zeng, Zhenyuan Lu. All rights reserved.
 //
 
 import Cocoa
