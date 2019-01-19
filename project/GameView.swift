@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameView: SKView {
 
-    let gameScene = GameScene(size: CGSize(width: 1005, height: 30))
+    let gameScene = GameScene(size: CGSize(width: 750, height: 30))
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)

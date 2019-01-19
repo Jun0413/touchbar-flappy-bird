@@ -2,6 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:project.xcodeproj">
+      location = "group:FlappyBirdy.ttf">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "fonts">
+   </Group>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

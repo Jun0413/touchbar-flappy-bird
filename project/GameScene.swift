@@ -18,23 +18,42 @@ struct PhysicsCategory {
     static let Obstacle: UInt32 = 0b1000
 }
 
+struct GameLevel {
+    static let initspawnDistance: Int = 80
+    static let initobstacleVelocity: Int = 80
+    static let finspawnDistance: Int = 30
+    static let finobstacleVelocity: Int = 130
+    static var spawnDistance: Int?
+    static var obstacleVelocity: Int?
+}
+
+let touchBarWidth = 750
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
     var sceneCreated = false
     var gameStarted = false
     var canJump = false
     var shouldSpawnObstacle = false
     var shouldUpdateScore = false
     
+    
     let gameFontColor = SKColor(red: 83/255.0, green: 83/255.0, blue: 83/255.0, alpha: 1)
     
-    let titleNode = SKLabelNode(fontNamed: "Courier")
-    let subtitleNode = SKLabelNode(fontNamed: "Courier")
-    let scoreNode = SKLabelNode(fontNamed: "Courier")
+    let titleNode = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
+    let subtitleNode = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
     let birdSpriteNode = SKSpriteNode(imageNamed: "BirdSprite")
-    // let ground: SKPhysicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: 0, y:0), to: CGPoint(x:1005, y:0))
-    let ground: SKPhysicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x:0, y:0, width:1005, height:30))
-    
+    let ground: SKPhysicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x:0, y:0, width: touchBarWidth, height:30))
+
     var currentScore = 0
+    
+    var gameNo:Int = 1
+    var scoreboardCallback:((String)->Void)?
+    var canStart = true
+    var backgroundSound = SKAudioNode(fileNamed: "flappy_bgm.mp3")
+    let wingSound = SKAction.playSoundFileNamed("flappy_wing.mp3", waitForCompletion: false)
+    let hitSound = SKAction.playSoundFileNamed("flappy_hit.mp3", waitForCompletion: false)
+    let updateScoreWaiting:Double = 6.6 // second
     
     override func didMove(to view: SKView) {
         if !sceneCreated {
@@ -46,6 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         
         srand48(Int(arc4random()))
+        self.removeChildren(in: [backgroundSound])
         
         for node in self.children {
             if (node.physicsBody?.categoryBitMask == PhysicsCategory.Obstacle) {
@@ -53,22 +73,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        initGameLevel(spawnDistance: GameLevel.initspawnDistance,
+                      obstacleVelocity: GameLevel.initobstacleVelocity)
+        
         gameStarted = true
         canJump = true
-        currentScore = 0
+        currentScore = -1
         shouldUpdateScore = true
-        updateScore()
+        
+        scoreboardCallback!("0")
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.updateScoreWaiting, execute: {
+            self.updateScore()
+        })
+
         titleNode.isHidden = true
         subtitleNode.isHidden = true
+        titleNode.text = "You lose"
+        subtitleNode.text = "Touch to retry..."
         self.shouldSpawnObstacle = true
-        self.spawnObstacle()
+        self.spawnObstacle(assignedGameNo: self.gameNo)
     }
     
     func createSceneContents() {
+
+        self.addChild(backgroundSound)
+        self.addChild(background())
         self.addChild(titleLabel())
         self.addChild(subtitleLabel())
         self.addChild(birdSprite())
-        self.addChild(scoreLabel())
         self.physicsWorld.contactDelegate = self
         self.backgroundColor = SKColor.lightGray
         //self.scaleMode = .aspectFit
@@ -87,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -1) // [%]
         
         //self.logger()
-        self.spawnObstacle()
+        self.spawnObstacle(assignedGameNo: self.gameNo)
     }
     
     func titleLabel() -> SKLabelNode {
@@ -101,28 +133,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func subtitleLabel() -> SKLabelNode {
-        subtitleNode.text = "Touch anywhere to begin..."
+        subtitleNode.text = "Touch to start..."
         subtitleNode.fontSize = 7
         subtitleNode.position = CGPoint(x: self.frame.midX, y: self.frame.midY-10)
         subtitleNode.fontColor = gameFontColor
         subtitleNode.zPosition = 50
         
         return subtitleNode
-    }
-    
-    func scoreLabel() -> SKLabelNode {
-        scoreNode.text = generateScore()
-        scoreNode.fontSize = 13
-        scoreNode.horizontalAlignmentMode = .right
-        scoreNode.position = CGPoint(x: self.frame.maxX - 4, y:self.frame.midY + 2)
-        scoreNode.fontColor = gameFontColor
-        scoreNode.zPosition = 80
-        
-        return scoreNode
-    }
-    
-    func generateScore() -> String {
-        return String(format: "%07d", currentScore)
     }
     
     func birdSprite() -> SKSpriteNode {
@@ -144,11 +161,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return birdSpriteNode
     }
     
+    func background() -> SKSpriteNode {
+        let background = SKSpriteNode(imageNamed: "backgroundImg")
+        background.size = CGSize(width: touchBarWidth, height: 30)
+        background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        return background
+    }
+    
     func endGame() {
         
+        self.gameNo += 1
+
         titleNode.isHidden = false
         subtitleNode.isHidden = false
         
+        canStart = false
         canJump = false
         shouldSpawnObstacle = false
         gameStarted = false
@@ -158,11 +185,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 node.physicsBody?.velocity = CGVector(dx:0, dy:0)
             }
         }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.backgroundSound = SKAudioNode(fileNamed: "flappy_failed.mp3")
+            self.addChild(self.backgroundSound)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
+                self.removeChildren(in: [self.backgroundSound])
+                self.canStart = true
+            })
+        })
     }
     
     func jump() {
         
-        if !gameStarted {
+        if !gameStarted && canStart {
             startGame()
         }
         
@@ -173,28 +209,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let pb = birdSpriteNode.physicsBody {
             // dy = 8.8 initially
             // [%]
-            pb.applyImpulse(CGVector(dx:0, dy:0.05), at: birdSpriteNode.position)
+            pb.applyImpulse(CGVector(dx:0, dy:0.07), at: birdSpriteNode.position)
+
+            run(wingSound)
         }
     }
     
-    func spawnObstacle() {
+    func spawnObstacle(assignedGameNo:Int) {
         if self.shouldSpawnObstacle == false {
             return
         }
-        
+
         // let x = arc4random() % 3;
         
         let bottomOb = SKSpriteNode(imageNamed: "BottomPipe")
         let upperOb = SKSpriteNode(imageNamed: "upperPipe")
         // let obSize = CGFloat(0.5) // [%]
         let obWidth = Double(bottomOb.size.width)
-        // bottomOb.setScale(obSize)
-        // upperOb.setScale(obSize)
         let heightDist = drand48()
         bottomOb.size=CGSize(width:obWidth, height: 15*heightDist)
         upperOb.size=CGSize(width:obWidth, height: 15 - 15*heightDist)
-        bottomOb.position = CGPoint(x: 1020, y: bottomOb.size.height/2)
-        upperOb.position = CGPoint(x: 1020, y: 30)
+        bottomOb.position = CGPoint(x: 700, y: bottomOb.size.height/2)
+        upperOb.position = CGPoint(x: 700, y: 30)
         bottomOb.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "BottomPipe"), size: bottomOb.size)
         upperOb.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "upperPipe"), size: upperOb.size)
         if let pb = bottomOb.physicsBody {
@@ -208,7 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             pb.friction = 0
             pb.linearDamping = 0
             pb.angularDamping = 0
-            pb.velocity = CGVector(dx: -100, dy: 0)
+            pb.velocity = CGVector(dx: -GameLevel.obstacleVelocity!, dy: 0)
         }
         if let bp = upperOb.physicsBody {
             bp.isDynamic = true
@@ -221,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bp.friction = 0
             bp.linearDamping = 0
             bp.angularDamping = 0
-            bp.velocity = CGVector(dx: -100, dy: 0)  //[%]
+            bp.velocity = CGVector(dx: -GameLevel.obstacleVelocity!, dy: 0)  //[%]
         }
         self.addChild(bottomOb)
         self.addChild(upperOb)
@@ -234,29 +270,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         })
         
-        
-        
-        // let randDelay = drand48() * 0.3 - Double(currentScore) / 1000.0 //[%]
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { //[%]
-            if self.shouldSpawnObstacle == true {
-                self.spawnObstacle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(GameLevel.spawnDistance!)/Double(GameLevel.obstacleVelocity!), execute: { //[%]
+            if self.shouldSpawnObstacle == true && assignedGameNo == self.gameNo { // BUG!
+                self.spawnObstacle(assignedGameNo: assignedGameNo)
             }
         })
+
     }
     
     func updateScore() {
+        updateLevel()
+
         currentScore += 1
-        scoreNode.text = generateScore()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             if (self.shouldUpdateScore) {
                 self.updateScore()
+                self.scoreboardCallback?(String(self.currentScore))
             }
         })
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        if !canStart {
+            return
+        }
         if (contact.bodyA == birdSpriteNode.physicsBody && contact.bodyB == ground) ||
             (contact.bodyB == birdSpriteNode.physicsBody && contact.bodyA == ground) {
             canJump = true
@@ -264,15 +302,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didEnd(_ contact: SKPhysicsContact) {
-//        [%]
-//        if (contact.bodyA == birdSpriteNode.physicsBody && contact.bodyB == ground) ||
-//            (contact.bodyB == birdSpriteNode.physicsBody && contact.bodyA == ground) {
-//            canJump = false
-//        } else {
-//            endGame()
-//        }
+        if !canStart {
+            return
+        }
         if !((contact.bodyA == birdSpriteNode.physicsBody && contact.bodyB == ground) ||
             (contact.bodyB == birdSpriteNode.physicsBody && contact.bodyA == ground)) {
+            run(hitSound)
             endGame()
         }
     }
@@ -283,5 +318,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.logger()
         })
     }
-
+    
+    func receiveSbCallback(scoreboardCallback:@escaping (String)->Void) {
+        self.scoreboardCallback = scoreboardCallback
+    }
+    
+    func initGameLevel(spawnDistance:Int, obstacleVelocity:Int) {
+        GameLevel.spawnDistance = spawnDistance
+        GameLevel.obstacleVelocity = obstacleVelocity
+    }
+    
+    func updateLevel() {
+        if GameLevel.spawnDistance! > GameLevel.finspawnDistance {
+            GameLevel.spawnDistance! -= 1
+        }
+        if GameLevel.obstacleVelocity! < GameLevel.finobstacleVelocity {
+            GameLevel.obstacleVelocity! += 1
+        }
+    }
 }

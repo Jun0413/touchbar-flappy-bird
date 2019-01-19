@@ -10,7 +10,7 @@ import Cocoa
 import SpriteKit
 
 struct Constants {
-    static let touchBarWidth:CGFloat = 1005.0
+    static let touchBarWidth:CGFloat = 750.0
     static let backgroundColor = NSColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
 }
 
@@ -20,8 +20,16 @@ class ViewController: NSViewController {
     let gameSKView = GameView()
     let mainTapReceiverButton = NSButton(title: " ", target: self, action: #selector(tap))
     
+    @IBOutlet weak var scoreBoard: NSTextFieldCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // pass callback
+        gameSKView.gameScene.receiveSbCallback() {
+            (score) -> Void in
+            self.scoreBoard.stringValue = score
+        }
         
         // Do any additional setup after loading the view.
         setupGameView()

@@ -16,6 +16,10 @@
 		8BBD13EC21F20F1B00461F0B /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13EB21F20F1B00461F0B /* WindowController.swift */; };
 		8BBD143621F2DCF200461F0B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD143521F2DCF200461F0B /* GameScene.swift */; };
 		8BBD143821F2DDA600461F0B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD143721F2DDA600461F0B /* GameView.swift */; };
+		8BBD144D21F3736D00461F0B /* flappy_bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144921F3736D00461F0B /* flappy_bgm.mp3 */; };
+		8BBD144E21F3736D00461F0B /* flappy_failed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */; };
+		8BBD144F21F3736D00461F0B /* flappy_hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */; };
+		8BBD145021F3736D00461F0B /* flappy_wing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,11 @@
 		8BBD13EB21F20F1B00461F0B /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		8BBD143521F2DCF200461F0B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		8BBD143721F2DDA600461F0B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		8BBD143C21F35D2200461F0B /* project.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = project.xcodeproj; sourceTree = "<group>"; };
+		8BBD144921F3736D00461F0B /* flappy_bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_bgm.mp3; sourceTree = "<group>"; };
+		8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_failed.mp3; sourceTree = "<group>"; };
+		8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_hit.mp3; sourceTree = "<group>"; };
+		8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_wing.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +91,7 @@
 		8BBD13B321F203E200461F0B = {
 			isa = PBXGroup;
 			children = (
+				8BBD143C21F35D2200461F0B /* project.xcodeproj */,
 				8BBD13BE21F203E200461F0B /* project */,
 				8BBD13D121F203E300461F0B /* projectTests */,
 				8BBD13DC21F203E300461F0B /* projectUITests */,
@@ -102,6 +112,7 @@
 		8BBD13BE21F203E200461F0B /* project */ = {
 			isa = PBXGroup;
 			children = (
+				8BBD144821F3736D00461F0B /* SoundTrack */,
 				8BBD13BF21F203E200461F0B /* AppDelegate.swift */,
 				8BBD13C121F203E200461F0B /* ViewController.swift */,
 				8BBD13C321F203E300461F0B /* Assets.xcassets */,
@@ -131,6 +142,22 @@
 				8BBD13DF21F203E300461F0B /* Info.plist */,
 			);
 			path = projectUITests;
+			sourceTree = "<group>";
+		};
+		8BBD143D21F35D2200461F0B /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8BBD144821F3736D00461F0B /* SoundTrack */ = {
+			isa = PBXGroup;
+			children = (
+				8BBD144921F3736D00461F0B /* flappy_bgm.mp3 */,
+				8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */,
+				8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */,
+				8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */,
+			);
+			path = SoundTrack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +250,12 @@
 			mainGroup = 8BBD13B321F203E200461F0B;
 			productRefGroup = 8BBD13BD21F203E200461F0B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8BBD143D21F35D2200461F0B /* Products */;
+					ProjectRef = 8BBD143C21F35D2200461F0B /* project.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8BBD13BB21F203E200461F0B /* project */,
@@ -237,8 +270,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BBD144D21F3736D00461F0B /* flappy_bgm.mp3 in Resources */,
 				8BBD13C421F203E300461F0B /* Assets.xcassets in Resources */,
+				8BBD144F21F3736D00461F0B /* flappy_hit.mp3 in Resources */,
 				8BBD13C721F203E300461F0B /* Main.storyboard in Resources */,
+				8BBD144E21F3736D00461F0B /* flappy_failed.mp3 in Resources */,
+				8BBD145021F3736D00461F0B /* flappy_wing.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
