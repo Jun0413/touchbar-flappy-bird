@@ -30,14 +30,13 @@ struct GameLevel {
 let touchBarWidth = 750
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+
     var sceneCreated = false
     var gameStarted = false
     var canJump = false
     var shouldSpawnObstacle = false
     var shouldUpdateScore = false
-    
-    
+
     let gameFontColor = SKColor(red: 83/255.0, green: 83/255.0, blue: 83/255.0, alpha: 1)
     
     let titleNode = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
@@ -49,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var gameNo:Int = 1
     var scoreboardCallback:((String)->Void)?
+    var bestscoreCallback:((Bool)->Void)?
     var canStart = true
     var backgroundSound = SKAudioNode(fileNamed: "flappy_bgm.mp3")
     let wingSound = SKAction.playSoundFileNamed("flappy_wing.mp3", waitForCompletion: false)
@@ -63,6 +63,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
+        
+        bestscoreCallback!(true) // hide best score
         
         srand48(Int(arc4random()))
         self.removeChildren(in: [backgroundSound])
@@ -81,7 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         currentScore = -1
         shouldUpdateScore = true
         
-        scoreboardCallback!("0")
+        scoreboardCallback!("0000000")
         DispatchQueue.main.asyncAfter(deadline: .now() + self.updateScoreWaiting, execute: {
             self.updateScore()
         })
@@ -116,9 +118,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.affectedByGravity = false
         ground.allowsRotation = false
         
-        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -1) // [%]
-        
-        //self.logger()
+        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -1)
+
         self.spawnObstacle(assignedGameNo: self.gameNo)
     }
     
@@ -144,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func birdSprite() -> SKSpriteNode {
         birdSpriteNode.setScale(0.5)
-        birdSpriteNode.position = CGPoint(x: 20, y: birdSpriteNode.size.height/2) // [%]
+        birdSpriteNode.position = CGPoint(x: 20, y: birdSpriteNode.size.height/2)
         birdSpriteNode.physicsBody = SKPhysicsBody(rectangleOf: birdSpriteNode.size)
         if let pb = birdSpriteNode.physicsBody {
             pb.isDynamic = true
@@ -169,6 +170,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func endGame() {
+        
+        if updateBestScore(score: currentScore) {
+            // update windows UI
+            // first score not shown up
+            print("##### Best score ##### \(currentScore)")
+            bestscoreCallback!(false)
+        }
         
         self.gameNo += 1
 
@@ -207,8 +215,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if let pb = birdSpriteNode.physicsBody {
-            // dy = 8.8 initially
-            // [%]
             pb.applyImpulse(CGVector(dx:0, dy:0.07), at: birdSpriteNode.position)
 
             run(wingSound)
@@ -219,12 +225,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if self.shouldSpawnObstacle == false {
             return
         }
-
-        // let x = arc4random() % 3;
         
         let bottomOb = SKSpriteNode(imageNamed: "BottomPipe")
         let upperOb = SKSpriteNode(imageNamed: "upperPipe")
-        // let obSize = CGFloat(0.5) // [%]
         let obWidth = Double(bottomOb.size.width)
         let heightDist = drand48()
         bottomOb.size=CGSize(width:obWidth, height: 15*heightDist)
@@ -257,7 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bp.friction = 0
             bp.linearDamping = 0
             bp.angularDamping = 0
-            bp.velocity = CGVector(dx: -GameLevel.obstacleVelocity!, dy: 0)  //[%]
+            bp.velocity = CGVector(dx: -GameLevel.obstacleVelocity!, dy: 0)
         }
         self.addChild(bottomOb)
         self.addChild(upperOb)
@@ -271,7 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         })
         
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(GameLevel.spawnDistance!)/Double(GameLevel.obstacleVelocity!), execute: { //[%]
-            if self.shouldSpawnObstacle == true && assignedGameNo == self.gameNo { // BUG!
+            if self.shouldSpawnObstacle == true && assignedGameNo == self.gameNo {
                 self.spawnObstacle(assignedGameNo: assignedGameNo)
             }
         })
@@ -286,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             if (self.shouldUpdateScore) {
                 self.updateScore()
-                self.scoreboardCallback?(String(self.currentScore))
+                self.scoreboardCallback?(String(format: "%07d", self.currentScore))
             }
         })
     }
@@ -323,6 +326,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.scoreboardCallback = scoreboardCallback
     }
     
+    func receiveBsCallback(bestscoreCallback:@escaping (Bool)->Void) {
+        self.bestscoreCallback = bestscoreCallback
+    }
+    
     func initGameLevel(spawnDistance:Int, obstacleVelocity:Int) {
         GameLevel.spawnDistance = spawnDistance
         GameLevel.obstacleVelocity = obstacleVelocity
@@ -335,5 +342,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if GameLevel.obstacleVelocity! < GameLevel.finobstacleVelocity {
             GameLevel.obstacleVelocity! += 1
         }
+    }
+    
+    func updateBestScore(score:Int) -> Bool {
+        print("updateBestScore called")
+        let userDefaults = UserDefaults.standard
+        var shouldUpdate = false
+        if let bestScore:Int = userDefaults.object(forKey: "bestscore") as! Int? {
+            if bestScore < score {
+                shouldUpdate = true
+                print("New best score")
+            } else {
+                print("New score less than best score")
+            }
+        } else {
+            // initialize
+            userDefaults.set(score, forKey: "bestscore")
+            userDefaults.synchronize()
+            print("initialize")
+        }
+        if shouldUpdate {
+            userDefaults.set(score, forKey: "bestscore")
+            userDefaults.synchronize()
+            print("updating")
+        }
+        return shouldUpdate
     }
 }

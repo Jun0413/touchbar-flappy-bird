@@ -20,15 +20,29 @@ class ViewController: NSViewController {
     let gameSKView = GameView()
     let mainTapReceiverButton = NSButton(title: " ", target: self, action: #selector(tap))
     
+    let birdState = ["Up","Mid","Down"]
+    var counter = 0
+    var timer = Timer()
+    
     @IBOutlet weak var scoreBoard: NSTextFieldCell!
+    @IBOutlet var BirdAnimation: NSImageView!
+    @IBOutlet var bestScoreLabel: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bestScoreLabel.frameRotation = 15
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(ViewController.animate), userInfo: nil, repeats: true)
         
         // pass callback
         gameSKView.gameScene.receiveSbCallback() {
             (score) -> Void in
             self.scoreBoard.stringValue = score
+        }
+        gameSKView.gameScene.receiveBsCallback() {
+            (isHidden) -> Void in
+            self.bestScoreLabel.isHidden = isHidden
         }
         
         // Do any additional setup after loading the view.
@@ -38,6 +52,11 @@ class ViewController: NSViewController {
     
     @objc func tap() {
         gameSKView.gameScene.jump()
+    }
+    
+    @objc func animate(){
+        BirdAnimation.image = NSImage(named: "Bird\(birdState[counter])Flap")
+        counter = (counter+1)%3
     }
     
     func setupGameView() {

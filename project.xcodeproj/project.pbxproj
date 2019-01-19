@@ -20,6 +20,7 @@
 		8BBD144E21F3736D00461F0B /* flappy_failed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */; };
 		8BBD144F21F3736D00461F0B /* flappy_hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */; };
 		8BBD145021F3736D00461F0B /* flappy_wing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */; };
+		8BBD145321F3A3DE00461F0B /* FlappyBirdy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD145221F3A3DE00461F0B /* FlappyBirdy.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		8BBD144A21F3736D00461F0B /* flappy_failed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_failed.mp3; sourceTree = "<group>"; };
 		8BBD144B21F3736D00461F0B /* flappy_hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_hit.mp3; sourceTree = "<group>"; };
 		8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flappy_wing.mp3; sourceTree = "<group>"; };
+		8BBD145221F3A3DE00461F0B /* FlappyBirdy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FlappyBirdy.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		8BBD13BE21F203E200461F0B /* project */ = {
 			isa = PBXGroup;
 			children = (
+				8BBD145121F3A3DE00461F0B /* fonts */,
 				8BBD144821F3736D00461F0B /* SoundTrack */,
 				8BBD13BF21F203E200461F0B /* AppDelegate.swift */,
 				8BBD13C121F203E200461F0B /* ViewController.swift */,
@@ -158,6 +161,14 @@
 				8BBD144C21F3736D00461F0B /* flappy_wing.mp3 */,
 			);
 			path = SoundTrack;
+			sourceTree = "<group>";
+		};
+		8BBD145121F3A3DE00461F0B /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8BBD145221F3A3DE00461F0B /* FlappyBirdy.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +284,7 @@
 				8BBD144D21F3736D00461F0B /* flappy_bgm.mp3 in Resources */,
 				8BBD13C421F203E300461F0B /* Assets.xcassets in Resources */,
 				8BBD144F21F3736D00461F0B /* flappy_hit.mp3 in Resources */,
+				8BBD145321F3A3DE00461F0B /* FlappyBirdy.ttf in Resources */,
 				8BBD13C721F203E300461F0B /* Main.storyboard in Resources */,
 				8BBD144E21F3736D00461F0B /* flappy_failed.mp3 in Resources */,
 				8BBD145021F3736D00461F0B /* flappy_wing.mp3 in Resources */,
