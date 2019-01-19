@@ -13,6 +13,9 @@
 		8BBD13C721F203E300461F0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BBD13C521F203E300461F0B /* Main.storyboard */; };
 		8BBD13D321F203E300461F0B /* projectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13D221F203E300461F0B /* projectTests.swift */; };
 		8BBD13DE21F203E300461F0B /* projectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13DD21F203E300461F0B /* projectUITests.swift */; };
+		8BBD13EC21F20F1B00461F0B /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD13EB21F20F1B00461F0B /* WindowController.swift */; };
+		8BBD143621F2DCF200461F0B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD143521F2DCF200461F0B /* GameScene.swift */; };
+		8BBD143821F2DDA600461F0B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBD143721F2DDA600461F0B /* GameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,9 @@
 		8BBD13D921F203E300461F0B /* projectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = projectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBD13DD21F203E300461F0B /* projectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectUITests.swift; sourceTree = "<group>"; };
 		8BBD13DF21F203E300461F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BBD13EB21F20F1B00461F0B /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		8BBD143521F2DCF200461F0B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		8BBD143721F2DDA600461F0B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,9 @@
 				8BBD13C521F203E300461F0B /* Main.storyboard */,
 				8BBD13C821F203E300461F0B /* Info.plist */,
 				8BBD13C921F203E300461F0B /* project.entitlements */,
+				8BBD13EB21F20F1B00461F0B /* WindowController.swift */,
+				8BBD143521F2DCF200461F0B /* GameScene.swift */,
+				8BBD143721F2DDA600461F0B /* GameView.swift */,
 			);
 			path = project;
 			sourceTree = "<group>";
@@ -255,7 +264,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BBD13C221F203E200461F0B /* ViewController.swift in Sources */,
+				8BBD13EC21F20F1B00461F0B /* WindowController.swift in Sources */,
+				8BBD143621F2DCF200461F0B /* GameScene.swift in Sources */,
 				8BBD13C021F203E200461F0B /* AppDelegate.swift in Sources */,
+				8BBD143821F2DDA600461F0B /* GameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
