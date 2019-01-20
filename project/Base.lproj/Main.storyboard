@@ -705,49 +705,43 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="project" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="608" height="405"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fk5-7r-Kch">
-                                <rect key="frame" x="0.0" y="0.0" width="608" height="405"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="windowBackground" id="W2F-Ou-00R"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="alA-t4-CB2">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="axesIndependently" image="windowBackground" id="bQF-lR-J53"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oMf-X4-O2W">
-                                <rect key="frame" x="207" y="166" width="70" height="43"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Score" id="D2j-X7-cbk">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oMf-X4-O2W">
+                                <rect key="frame" x="88" y="129" width="70" height="43"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Score" id="D2j-X7-cbk">
                                     <font key="font" size="48" name="FlappyBirdy"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="linkColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocX-au-Lnl">
-                                <rect key="frame" x="129" y="20" width="350" height="41"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ocX-au-Lnl">
+                                <rect key="frame" x="65" y="5" width="321" height="41"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Touch to start or jump" id="nhl-vB-1xQ">
                                     <font key="font" size="26" name="Silom"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-Tf-qfS">
-                                <rect key="frame" x="280" y="95" width="48" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AUe-Tf-qfS">
+                                <rect key="frame" x="183" y="60" width="85" height="49"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="BirdMidFlap" id="Y7s-67-CFD"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-gC-3T9">
-                                <rect key="frame" x="304" y="173" width="208" height="41"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-gC-3T9">
+                                <rect key="frame" x="162" y="130" width="126" height="41"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" placeholderString="0000000" id="tRM-D7-3wm">
                                     <font key="font" size="26" name="Silom"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DYb-Ix-vmD">
-                                <rect key="frame" x="434" y="136" width="111" height="29"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DYb-Ix-vmD">
+                                <rect key="frame" x="306" y="98" width="111" height="29"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Best Score !!" id="eId-t7-Rwx">
                                     <font key="font" size="20" name="MarkerFelt-Wide"/>
                                     <color key="textColor" red="0.91894400119781494" green="0.29275217652320862" blue="0.14893415570259094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -755,22 +749,36 @@
                                 </textFieldCell>
                             </textField>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="AUe-Tf-qfS" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="1bn-1e-bAU"/>
+                            <constraint firstItem="alA-t4-CB2" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="5ZN-Wa-y7h"/>
+                            <constraint firstItem="7pJ-gC-3T9" firstAttribute="leading" secondItem="oMf-X4-O2W" secondAttribute="trailing" constant="8" id="68D-6L-9tC"/>
+                            <constraint firstItem="7pJ-gC-3T9" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="DKN-Qv-nZx"/>
+                            <constraint firstItem="DYb-Ix-vmD" firstAttribute="top" secondItem="7pJ-gC-3T9" secondAttribute="bottom" constant="7" id="HFD-RH-WPn"/>
+                            <constraint firstItem="7pJ-gC-3T9" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="IhF-3M-vDL"/>
+                            <constraint firstItem="ocX-au-Lnl" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="P2T-uL-Ezv"/>
+                            <constraint firstItem="DYb-Ix-vmD" firstAttribute="leading" secondItem="7pJ-gC-3T9" secondAttribute="trailing" constant="22" id="UbR-bz-YQc"/>
+                            <constraint firstAttribute="bottom" secondItem="alA-t4-CB2" secondAttribute="bottom" id="j8w-Le-h5k"/>
+                            <constraint firstItem="oMf-X4-O2W" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="mUU-QA-H7y"/>
+                            <constraint firstAttribute="trailing" secondItem="alA-t4-CB2" secondAttribute="trailing" id="nwQ-Ro-Jhs"/>
+                            <constraint firstAttribute="bottom" secondItem="ocX-au-Lnl" secondAttribute="bottom" constant="5" id="tPL-S6-UgM"/>
+                            <constraint firstItem="alA-t4-CB2" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="wXR-kf-O7D"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="BirdAnimation" destination="AUe-Tf-qfS" id="Hqr-J2-pNF"/>
                         <outlet property="bestScoreLabel" destination="DYb-Ix-vmD" id="h7A-WV-Kdg"/>
                         <outlet property="scoreBoard" destination="tRM-D7-3wm" id="qQO-Ew-Da4"/>
                         <outlet property="scoreText" destination="oMf-X4-O2W" id="A68-rK-wWb"/>
-                        <outlet property="windowBackground" destination="fk5-7r-Kch" id="UNX-M0-v3h"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="95" y="654.5"/>
+            <point key="canvasLocation" x="94" y="654"/>
         </scene>
     </scenes>
     <resources>
         <image name="BirdMidFlap" width="85" height="100"/>
-        <image name="windowBackground" width="1500" height="1000"/>
+        <image name="windowBackground" width="450" height="300"/>
     </resources>
 </document>
