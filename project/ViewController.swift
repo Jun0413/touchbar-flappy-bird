@@ -1,10 +1,5 @@
-//
-//  ViewController.swift
-//  project
-//
-//  Created by Junhao Zeng, Zhenyuan Lu on 2019/1/18.
-//  Copyright © 2019 Junhao Zeng, Zhenyuan Lu. All rights reserved.
-//
+//  Modified based on TouchBarDino by yuhuili
+//  Granted by MIT License
 
 import Cocoa
 import SpriteKit

@@ -1,10 +1,5 @@
-//
-//  GameView.swift
-//  project
-//
-//  Created by Junhao Zeng, Zhenyuan Lu on 2019/1/19.
-//  Copyright © 2019 Junhao Zeng, Zhenyuan Lu. All rights reserved.
-//
+//  Modified based on TouchBarDino by yuhuili
+//  Granted by MIT License
 
 import Cocoa
 import SpriteKit
@@ -16,7 +11,6 @@ class GameView: SKView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
-        // Drawing code here.
     }
     
     func initScene() {
