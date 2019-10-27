@@ -132,9 +132,6 @@ extension ViewController: NSTouchBarDelegate {
         case NSTouchBarItem.Identifier.gameItem:
             let customViewItem = NSCustomTouchBarItem(identifier: identifier)
             customViewItem.view = gameView
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                self.setupGameView()
-            })
             return customViewItem
         default:
             return nil
